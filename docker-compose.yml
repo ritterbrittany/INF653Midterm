@@ -3,10 +3,10 @@ version: '3'
 services:
   php-apache:
     build:
-      context: .
+      context: . 
       dockerfile: Dockerfile
     ports:
-      - "80:80"  # This is for the web server (HTTP port)
+      - "80:80"  # Web server port
     volumes:
       - .:/var/www/html
     environment:
@@ -14,13 +14,4 @@ services:
       - HOST=${HOST}
       - USERNAME=${USERNAME}
       - PASSWORD=${PASSWORD}
-      - PORT=${PORT}  # Ensure you're passing 5432 for PostgreSQL
-
-  postgres:
-    image: postgres:latest  # Use a PostgreSQL image if you're containerizing PostgreSQL
-    environment:
-      POSTGRES_USER: ${USERNAME}
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_DB: ${DBNAME}
-    ports:
-      - "5432:5432"  # Exposing PostgreSQL on port 5432 externally
+      - PORT=${PORT}  # Ensure 5432 for PostgreSQL
