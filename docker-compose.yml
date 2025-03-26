@@ -9,9 +9,3 @@ services:
     - "80:80"
   volumes:
     - .:/var/www/html
-environment:
-      - DBNAME=${DBNAME}  # These will come from Render's environment variables
-      - HOST=${HOST}
-      - USERNAME=${USERNAME}
-      - PASSWORD=${PASSWORD}
-      - PORT=${PORT}  # Port 5432 will be provided by Render
