@@ -14,7 +14,7 @@ require_once '../../models/Category.php';
 
 // Instantiate database and Category object
 $database = new Database();
-$db = $database->getConnection();
+$db = $database->connect();
 
 $category = new Category($db);
 

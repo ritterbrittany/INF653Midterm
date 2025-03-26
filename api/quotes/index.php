@@ -14,7 +14,7 @@ require_once '../../models/Quote.php';
 
 // Instantiate database and Quote object
 $database = new Database();
-$db = $database->getConnection();
+$db = $database->connect();
 
 $quote = new Quotes($db);
 

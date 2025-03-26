@@ -14,7 +14,7 @@ require_once '../../models/Authors.php';
 
 // Instantiate database and Authors object
 $database = new Database();
-$db = $database->getConnection();
+$db = $database->connect();
 
 $author = new Authors($db);
 
