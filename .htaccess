@@ -1,0 +1,6 @@
+# Environment Variables for PostgreSQL
+SetEnv USERNAME "quotesdb_rr23_user"    
+SetEnv PASSWORD "LTbRr4MOv7Hv63kyUOiFyRSgIzf3FrV0"    
+SetEnv DBNAME "quotesdb_rr23"
+SetEnv HOST "dpg-cvi06052ng1s73a03scg-a.oregon-postgres.render.com"
+SetEnv PORT "5432"

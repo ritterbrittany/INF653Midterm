@@ -1,0 +1,15 @@
+# Ignore .env files (which might contain sensitive data like database credentials)
+.env
+
+# Ignore .git folder
+.git/
+
+# Ignore node_modules directory (if you're using npm or yarn)
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore any other sensitive files
+*.env
+*.sql
