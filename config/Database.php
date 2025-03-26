@@ -1,35 +1,29 @@
 <?php
-class Database {
+class Database { 
+    private $host;
+    private $port;
+    private $dbname;
+    private $username;
+    private $password;
     private $conn;
 
-    // Constructor to retrieve connection details from the DATABASE_URL
+    // Constructor to retrieve values from the environment variables
     public function __construct() {
-        // Retrieve the DATABASE_URL from the environment variable
-        $url = getenv('DATABASE_URL');
-        
-        // If DATABASE_URL is not set, use the provided URL as fallback
-        if (!$url) {
-            $url = "postgresql://quotesdb_rr23_user:LTbRr4MOv7Hv63kyUOiFyRSgIzf3FrV0@dpg-cvi06052ng1s73a03scg-a/quotesdb_rr23";
-        }
+        // Retrieve environment variables set in Render's environment
+        $this->username = getenv('USERNAME');  // Database username
+        $this->password = getenv('PASSWORD');  // Database password
+        $this->db_name = getenv('DBNAME');        // Database name
+        $this->host = getenv('HOST');          // Database hostname (from the internal URL)
+        $this->port = getenv('PORT');  // Ensure default port 5432
 
-        // Parse the DATABASE_URL
-        $parsed_url = parse_url($url);
-
-        // Extract connection details from the parsed URL
-        $this->host = $parsed_url['host'];
-        $this->username = $parsed_url['user'];
-        $this->password = $parsed_url['pass'];
-        $this->db_name = ltrim($parsed_url['path'], '/');  // Remove the leading '/' from the path
-        $this->port = 5432; // Default port for PostgreSQL (we can explicitly set this)
-
-        // Optional: debugging line to see the values being used
-        echo "Database connection info - Username: {$this->username}, Host: {$this->host}, Port: {$this->port}, Database: {$this->db_name}\n";  // Optional debugging line
+        echo "Database connection info - Username: {$this->username}, Host: {$this->host}, Port: {$this->port}\n";  // Optional debugging line
     }
 
     // Method to connect to the database
     public function connect() {
-        $this->conn = null;
-
+        if ($this->conn) {
+            return $this->conn;
+        }else {
         // Construct the DSN string for PostgreSQL
         $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->db_name}";
 
@@ -44,5 +38,5 @@ class Database {
         return $this->conn;
     }
 }
-?>
+} 
 
