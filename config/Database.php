@@ -7,23 +7,26 @@ class Database {
     private $password;
     private $conn;
 
-    // Constructor to retrieve values from the .htaccess environment variables
+    // Constructor to retrieve values from the environment variables
     public function __construct() {
-        // Retrieve environment variables set in .htaccess
-        $this->username = getenv('USERNAME');  // Your Render DB username
-        $this->password = getenv('PASSWORD');  // Your Render DB password
-        $this->db_name = getenv('DBNAME');     // Your Render DB name (quotesdb_rr23)
-        $this->host = getenv('HOST');          // Your Render DB hostname
-        $this->port = getenv('PORT');          // Default PostgreSQL port (5432)
+        // Retrieve environment variables set in Render's environment
+        $this->username = getenv('DB_USERNAME');  // Database username
+        $this->password = getenv('DB_PASSWORD');  // Database password
+        $this->db_name = getenv('DBNAME');        // Database name
+        $this->host = getenv('DB_HOST');          // Database hostname (from the internal URL)
+        $this->port = getenv('DB_PORT');          // PostgreSQL default port (5432)
+
+        // Debugging: Check the values
         echo "Username: {$this->username}, Host: {$this->host}, Port: {$this->port}\n";
         echo "DBNAME: " . getenv('DBNAME') . "\n";
-        echo "HOST: " . getenv('HOST') . "\n";
-echo "PORT: " . getenv('PORT') . "\n";
+        echo "HOST: " . getenv('DB_HOST') . "\n";
+        echo "PORT: " . getenv('DB_PORT') . "\n";
     }
 
     // Method to connect to the database
     public function connect() {
         $this->conn = null;
+        // Construct the DSN string for PostgreSQL
         $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->db_name}";
 
         try {
@@ -37,4 +40,4 @@ echo "PORT: " . getenv('PORT') . "\n";
         return $this->conn;
     }
 }
-?>
+
