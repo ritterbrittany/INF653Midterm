@@ -9,7 +9,7 @@
 	   exit();
 	}
 	// Include necessary files
-require_once '../../config/database.php';
+require_once '../../config/Database.php';
 require_once '../../models/Category.php';
 
 // Instantiate database and Category object

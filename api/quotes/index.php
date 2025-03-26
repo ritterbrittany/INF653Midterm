@@ -1,5 +1,5 @@
 <?php 
-	header('Access-Control-Allow=Origin: *');
+	header('Access-Control-Allow-Origin: *');
 	header('Content-Type: application/json');
 	$method = $_SERVER['REQUEST_METHOD'];
 
@@ -9,7 +9,7 @@
 	   exit();
 	}
 	// Include necessary files
-require_once '../../config/database.php';
+require_once '../../config/Database.php';
 require_once '../../models/Quote.php';
 
 // Instantiate database and Quote object
