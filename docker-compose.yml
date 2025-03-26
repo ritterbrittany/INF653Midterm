@@ -3,11 +3,11 @@ version: '3'
 services:
   php-apache:
     build:
-      context: ./inf653_php_midterm  # Path to the folder where your Dockerfile and project files reside
-      dockerfile: Dockerfile         # Dockerfile name if it is named "Dockerfile" in the same folder
+      context: . 
+      dockerfile: Dockerfile
     ports:
       - "80:80"
     volumes:
-      - ./inf653_php_midterm:/var/www/html  # Mount the project folder inside the container
+      - .:/var/www/html
     env_file:
-      - .env  # Point to your .env file for environment variable
+    - .env
