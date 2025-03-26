@@ -93,7 +93,7 @@ switch ($method) {
                 $quote->id = $data->id;
 
                 if ($quote->delete()) {
-                    echo json_encode(array('message' => 'No Quotes Found'));
+                    echo json_encode(array('id' => $quote->id, 'message' => 'Quote Deleted'))
                 } else {
                     echo json_encode(array('message' => 'Unable to delete quote.'));
                 }
