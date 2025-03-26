@@ -35,7 +35,7 @@ switch ($method) {
                     "category" => $quote->category
                 ]);
             } else {
-                echo json_encode(["message" => "Quote not found."]);
+                echo json_encode(["message" => "No Quotes Found"]);
             }
         } else {
             // Get all quotes
@@ -76,7 +76,7 @@ switch ($method) {
                 $quote->category_id = $data->category_id;
 
                 if ($quote->update()) {
-                    echo json_encode(array('message' => 'Quote updated.'));
+                    echo json_encode(array('message' => 'No Quotes Found'));
                 } else {
                     echo json_encode(array('message' => 'Unable to update quote.'));
                 }
@@ -93,7 +93,7 @@ switch ($method) {
                 $quote->id = $data->id;
 
                 if ($quote->delete()) {
-                    echo json_encode(array('message' => 'Quote deleted.'));
+                    echo json_encode(array('message' => 'No Quotes Found'));
                 } else {
                     echo json_encode(array('message' => 'Unable to delete quote.'));
                 }

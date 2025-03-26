@@ -33,7 +33,7 @@ switch ($method) {
                     "author" => $author->author
                 ]);
             } else {
-                echo json_encode(["message" => "Author not found."]);
+                echo json_encode(["message" => "author_id Not Found"]);
             }
         } else {
             // Get all authors
