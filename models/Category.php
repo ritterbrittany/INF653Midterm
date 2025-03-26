@@ -46,8 +46,8 @@
          $stmt = $this->conn->prepare($query);
          
          //Clean data
-         $this->id = htmlspecialchars(strip_tags($this->id));
-         $this->category = htmlspecialchars(strip_tags($this->category));
+         $this->id = trim(htmlspecialchars(strip_tags($this->id)));
+         $this->category = trim(htmlspecialchars(strip_tags($this->category)));
 
          //Bind data
          $stmt->bindParam(':id', $this->id);
