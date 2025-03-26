@@ -15,6 +15,7 @@ class Database {
         $this->db_name = getenv('DBNAME');     // Your Render DB name (quotesdb_rr23)
         $this->host = getenv('HOST');          // Your Render DB hostname
         $this->port = getenv('PORT');          // Default PostgreSQL port (5432)
+        echo "Username: {$this->username}, Host: {$this->host}, Port: {$this->port}\n";
     }
 
     // Method to connect to the database
