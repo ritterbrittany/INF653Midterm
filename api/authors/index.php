@@ -57,7 +57,7 @@ switch ($method) {
                 echo json_encode(["message" => "Failed to create author."]);
             }
         } else {
-            echo json_encode(["message" => "Missing author field."]);
+            echo json_encode(["message" => "Missing Required Parameters"]);
         }
         break;
 
@@ -73,7 +73,7 @@ switch ($method) {
                 echo json_encode(["message" => "Failed to update author."]);
             }
         } else {
-            echo json_encode(["message" => "Missing fields."]);
+            echo json_encode(["message" => "Missing Required Parameters"]);
         }
         break;
 

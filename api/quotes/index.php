@@ -61,7 +61,7 @@ switch ($method) {
                 echo json_encode(["message" => "Failed to create quote."]);
             }
         } else {
-            echo json_encode(["message" => "Missing fields."]);
+            echo json_encode(["message" => 'Missing Required Parameters']);
         }
         break;
 
@@ -81,7 +81,7 @@ switch ($method) {
                     echo json_encode(array('message' => 'Unable to update quote.'));
                 }
             } else {
-                echo json_encode(array('message' => 'Incomplete data.'));
+                echo json_encode(array('message' => 'Missing Required Parameters'));
             }
             break;
 
