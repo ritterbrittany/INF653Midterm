@@ -12,11 +12,11 @@ class Database {
         // Retrieve environment variables set in Render's environment
         $this->username = getenv('USERNAME');  // Database username
         $this->password = getenv('PASSWORD');  // Database password
-        $this->db_name = getenv('DBNAME');        // Database name
+        $this->dbname = getenv('DBNAME');        // Database name
         $this->host = getenv('HOST');          // Database hostname (from the internal URL)
         $this->port = 5432;  // Ensure default port 5432
 
-        
+
     }
 
     // Method to connect to the database
@@ -25,7 +25,7 @@ class Database {
             return $this->conn;
         }else {
         // Construct the DSN string for PostgreSQL
-        $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->db_name}";
+        $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->dbname}";
 
         try {
             // Connect to PostgreSQL using PDO
