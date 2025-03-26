@@ -16,6 +16,9 @@ class Database {
         $this->host = getenv('HOST');          // Your Render DB hostname
         $this->port = getenv('PORT');          // Default PostgreSQL port (5432)
         echo "Username: {$this->username}, Host: {$this->host}, Port: {$this->port}\n";
+        echo "DBNAME: " . getenv('DBNAME') . "\n";
+        echo "HOST: " . getenv('HOST') . "\n";
+        echo "PORT: " . getenv('PORT') . "\n";
     }
 
     // Method to connect to the database

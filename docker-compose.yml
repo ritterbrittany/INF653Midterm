@@ -15,3 +15,4 @@ services:
       - USERNAME=${USERNAME}
       - PASSWORD=${PASSWORD}
       - PORT=${PORT}  # Ensure 5432 for PostgreSQL
+    container name: midtermproj-test
