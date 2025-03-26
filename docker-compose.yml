@@ -6,6 +6,20 @@ services:
     context:
     dockerfile: Dockerfile
   ports:
-    - "80"
+    - "80:80"
   volumes:
     - .:/var/www/html
+
+postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${USERNAME}    # From your environment variable
+      POSTGRES_PASSWORD: ${PASSWORD}  # From your environment variable
+      POSTGRES_DB: ${DBNAME}         # From your environment variable
+    ports:
+      - "5432:5432"  # PostgreSQL runs on port 5432 for database traffic
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Optional: Persistent data storage
+
+volumes:
+  postgres_data:
