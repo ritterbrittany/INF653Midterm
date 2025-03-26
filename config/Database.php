@@ -14,7 +14,9 @@ class Database {
         $this->password = getenv('PASSWORD');  // Database password
         $this->db_name = getenv('DBNAME');        // Database name
         $this->host = getenv('HOST');          // Database hostname (from the internal URL)
-        $this->port = getenv('PORT');          // PostgreSQL default port (5432)
+        $this->port = getenv('PORT') ?: 5432;  // Ensure default port 5432
+
+        echo "Database connection info - Username: {$this->username}, Host: {$this->host}, Port: {$this->port}\n";  // Optional debugging line
     }
 
     // Method to connect to the database
@@ -33,4 +35,4 @@ class Database {
 
         return $this->conn;
     }
-} 
+}
