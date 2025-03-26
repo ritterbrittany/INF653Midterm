@@ -9,10 +9,4 @@ services:
       - "80:80"  # Web server port
     volumes:
       - .:/var/www/html
-    environment:
-      - DBNAME=${DBNAME}
-      - HOST=${HOST}
-      - USERNAME=${USERNAME}
-      - PASSWORD=${PASSWORD}
-      - PORT=${PORT}  # Ensure 5432 for PostgreSQL
-    container name: midtermproj-test
+    
