@@ -10,15 +10,17 @@ class Database {
     // Constructor to retrieve values from the .htaccess environment variables
     public function __construct() {
         // Retrieve environment variables set in .htaccess
-        $this->username = getenv('USERNAME');  // Your Render DB username
-        $this->password = getenv('PASSWORD');  // Your Render DB password
-        $this->db_name = getenv('DBNAME');     // Your Render DB name (quotesdb_rr23)
-        $this->host = getenv('HOST');          // Your Render DB hostname
-        $this->port = getenv('PORT');          // Default PostgreSQL port (5432)
+        $this->username = getenv('DB_USERNAME');  // Your Render DB username
+        $this->password = getenv('DB_PASSWORD');  // Your Render DB password
+        $this->db_name = getenv('DB_NAME');     // Your Render DB name (quotesdb_rr23)
+        $this->host = getenv('DB_HOST');          // Your Render DB hostname
+        $this->port = getenv('DB_PORT');          // Default PostgreSQL port (5432)
+        
+        
         echo "Username: {$this->username}, Host: {$this->host}, Port: {$this->port}\n";
-        echo "DBNAME: " . getenv('DBNAME') . "\n";
-        echo "HOST: " . getenv('HOST') . "\n";
-        echo "PORT: " . getenv('PORT') . "\n";
+        echo "DBNAME: {$this->db_name}\n";
+        echo "HOST: {$this->host}\n";
+        echo "PORT: {$this->port}\n";
     }
 
     // Method to connect to the database
