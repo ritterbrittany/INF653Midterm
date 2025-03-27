@@ -1,158 +1,140 @@
-<?php
-class Category {
-    private $conn;
-    private $table = 'category';
+<?php 
+	header('Access-Control-Allow-Origin: *');
+	header('Content-Type: application/json');
+	$method = $_SERVER['REQUEST_METHOD'];
 
-    public $id;
-    public $category;
+	if ($method === 'OPTIONS') {
+	   header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+	   header('Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With');
+	   exit();
+	}
+    
+    class Category {
+        private $conn;
+        private $table = 'category';
 
-    public function __construct($db) {
-        $this->conn = $db;
-    }
+        public $id;
+        public $category;
 
-    // Read all categories
-    public function read() {
-        $query = 'SELECT id, category FROM ' . $this->table;
+        public function __construct($db) {
+            $this->conn = $db;
+        }
 
-        $stmt = $this->conn->prepare($query);
+        public function read() {
+            $query = 'SELECT id, category FROM ' . $this->table;
 
-        try {
-            // Execute the query
+            $stmt = $this->conn->prepare($query);
+
             $stmt->execute();
-        } catch (PDOException $e) {
-            // Catch any errors with the query execution
-            echo json_encode(['message' => 'Error executing query: ' . $e->getMessage()]);
-            return [];
+
+            return $stmt;
         }
 
-        // Create an array to store categories
-        $categories_arr = [];
+        public function read_single() {
+            $query = 'SELECT id, category FROM ' . $this->table . ' WHERE id = :id';
 
-        // Fetch the results as an associative array
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $categories_arr[] = $row;  // Add each row to the categories array
-        }
+            $stmt = $this->conn->prepare($query);
 
-        // Return the categories array
-        return $categories_arr;
-    }
+            $stmt->bindParam(':id', $this->id);
 
-    // Read a single category by id
-    public function read_single() {
-        $query = 'SELECT id, category FROM ' . $this->table . ' WHERE id = :id';
-
-        $stmt = $this->conn->prepare($query);
-
-        // Bind the parameter
-        $stmt->bindParam(':id', $this->id);
-
-        try {
-            // Execute the query
             $stmt->execute();
-        } catch (PDOException $e) {
-            echo json_encode(['message' => 'Error executing query: ' . $e->getMessage()]);
-            return null;
-        }
 
-        // Fetch the result
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row) {
+            if ($row) { 
             $this->id = $row['id'];
             $this->category = $row['category'];
         }
-    }
-
-    // Create a new category
+     }
+      // Create Category
     public function create() {
-        // Create query
-        $query = 'INSERT INTO ' . $this->table . ' (id, category) VALUES (:id, :category)';
+        //Create query
+        $query = 'INSERT INTO ' . $this->table . ' (id,category) VALUES (:id, :category)';
 
-        // Prepare the statement
-        $stmt = $this->conn->prepare($query);
+         //Prepare Statement
+         $stmt = $this->conn->prepare($query);
+         
+         //Clean data
+         $this->id = trim(htmlspecialchars(strip_tags($this->id)));
+         $this->category = trim(htmlspecialchars(strip_tags($this->category)));
 
-        // Clean data
-        $this->id = trim(htmlspecialchars(strip_tags($this->id)));
-        $this->category = trim(htmlspecialchars(strip_tags($this->category)));
+         //Bind data
+         $stmt->bindParam(':id', $this->id);
+         $stmt->bindParam(':category', $this->category);
 
-        // Bind data
-        $stmt->bindParam(':id', $this->id);
-        $stmt->bindParam(':category', $this->category);
 
-        try {
-            // Execute the query
-            if ($stmt->execute()) {
-                return true;
-            }
-        } catch (PDOException $e) {
-            // Print error if something goes wrong
-            echo json_encode(['message' => 'Error executing query: ' . $e->getMessage()]);
-            return false;
-        }
+         //Execute query
+         if($stmt->execute()) {
+            return true;
+         }
 
-        return false;
+         // Print error if something goes wrong
+         printf("Error: %s.\n", $stmt->error);
+
+         return false;
     }
+    //Update Category 
 
-    // Update an existing category
-    public function update() {
-        // Create query
-        $query = 'UPDATE ' . $this->table . ' SET category = :category WHERE id = :id';
+public function update(){
 
-        // Prepare the statement
+    //Create query
+    $query = 'UPDATE ' . $this->table . ' 
+        SET 
+        category = :category
+        WHERE id = :id';
+    
+    //Prepare Statement
+    $stmt = $this->conn->prepare($query);
+    
+    //Clean data
+    $this->id = htmlspecialchars(strip_tags($this->id));
+    $this->category = htmlspecialchars(strip_tags($this->category));
+    
+    //Bind data
+    $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':category', $this->category);
+    
+    //Execute query
+    if($stmt->execute()) {
+    return true;
+    }
+    
+    //Print error if soemthing goes wrong 
+    printf("Error: %s.\n", $stmt->error);
+    
+    return false; 
+    }
+    // Delete Category
+public function delete() {
+    try {
+        // Create query 
+        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+
+        // Prepare Statement
         $stmt = $this->conn->prepare($query);
 
         // Clean data
         $this->id = htmlspecialchars(strip_tags($this->id));
-        $this->category = htmlspecialchars(strip_tags($this->category));
 
         // Bind data
         $stmt->bindParam(':id', $this->id);
-        $stmt->bindParam(':category', $this->category);
 
-        try {
-            // Execute the query
-            if ($stmt->execute()) {
-                return true;
-            }
-        } catch (PDOException $e) {
-            // Print error if something goes wrong
-            echo json_encode(['message' => 'Error executing query: ' . $e->getMessage()]);
-            return false;
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
         }
 
+        // If not successful, print error message
+        printf("Error: %s.\n", $stmt->error);
         return false;
-    }
-
-    // Delete a category
-    public function delete() {
-        try {
-            // Create query
-            $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
-
-            // Prepare the statement
-            $stmt = $this->conn->prepare($query);
-
-            // Clean data
-            $this->id = htmlspecialchars(strip_tags($this->id));
-
-            // Bind data
-            $stmt->bindParam(':id', $this->id);
-
-            // Execute the query
-            if ($stmt->execute()) {
-                return true;
-            }
-        } catch (PDOException $e) {
-            // Catch SQL errors, especially foreign key constraint violations
-            echo json_encode(
-                array('message' => 'Error: Cannot delete category due to foreign key constraints. ' . $e->getMessage())
-            );
-            return false;
-        }
-
-        // If deletion was not successful, return an error message
-        echo json_encode(['message' => 'Failed to delete category.']);
+    } catch (PDOException $e) {
+        // Catch any SQL errors, especially foreign key constraint violations
+        echo json_encode(
+            array('message' => 'Error: Cannot delete author due to foreign key constraints. ' . $e->getMessage())
+        );
         return false;
     }
 }
-?>
+    }
+?>    
