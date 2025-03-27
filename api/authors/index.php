@@ -33,7 +33,7 @@ switch ($method) {
                     "author" => $author->author
                 ]);
             } else {
-                echo json_encode(["message" => "Author not found."]);
+                echo json_encode(["message" => "author_id Not Found"]);
             }
         } else {
             // Get all authors
@@ -57,7 +57,7 @@ switch ($method) {
                 echo json_encode(["message" => "Failed to create author."]);
             }
         } else {
-            echo json_encode(["message" => "Missing author field."]);
+            echo json_encode(["message" => "Missing Required Parameters"]);
         }
         break;
 
